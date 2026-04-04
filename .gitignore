@@ -1,4 +1,8 @@
 node_modules/
 .env
+
+# SQLite database and WAL mode runtime files
 finance.db
 *.db
+*.db-shm
+*.db-wal
