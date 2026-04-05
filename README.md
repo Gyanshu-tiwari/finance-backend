@@ -42,17 +42,17 @@ This project implements the backend for a finance dashboard where users interact
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Runtime | Node.js v18+ (ESM modules) |
-| Framework | Express v5 |
-| Database | SQLite via `better-sqlite3` |
-| Authentication | JSON Web Tokens (`jsonwebtoken`) |
-| Validation | Joi |
-| Password Hashing | bcryptjs |
-| Security | Helmet, CORS, express-rate-limit |
-| Logging | Morgan |
-| Dev Server | Nodemon |
+| Layer              | Technology                          |
+|--------------------|-------------------------------------|
+| Runtime            | Node.js v18+ (ESM modules)          |
+| Framework          | Express v5                          |
+| Database           | SQLite via `better-sqlite3`         |
+| Authentication     | JSON Web Tokens (`jsonwebtoken`)    |
+| Validation         | Joi                                 |
+| Password Hashing   | bcryptjs                            |
+| Security           | Helmet, CORS, express-rate-limit    |
+| Logging            | Morgan                              |
+| Dev Server         | Nodemon                             |
 
 ---
 
@@ -143,11 +143,11 @@ The server starts on `http://localhost:3000`. The SQLite database and all tables
 
 ### Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start with nodemon (auto-restart on changes) |
-| `npm start` | Start in production mode |
-| `npm run seed` | Run additional seed data (optional) |
+| Command          | Description                                    |
+|------------------|------------------------------------------------|
+| `npm run dev`    | Start with nodemon (auto-restart on changes)   |
+| `npm start`      | Start in production mode                       |
+| `npm run seed`   | Run additional seed data (optional)            |
 
 ---
 
@@ -181,11 +181,11 @@ ALLOWED_ORIGINS=*
 
 A default admin account is automatically created on first run:
 
-| Field | Value |
-|-------|-------|
-| Email | `admin@example.com` |
-| Password | `admin123` |
-| Role | `admin` |
+| Field      | Value                |
+|------------|----------------------|
+| Email      | `admin@example.com`  |
+| Password   | `admin123`           |
+| Role       | `admin`              |
 
 > ⚠️ Change this password immediately in any shared or production environment.
 
@@ -252,13 +252,13 @@ Authenticate and receive a token.
 
 > 🔒 All user management endpoints require **Admin** role.
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `GET` | `/api/users` | List all users |
-| `GET` | `/api/users/:id` | Get user by ID |
-| `PUT` | `/api/users/:id` | Update user name, email, or role |
-| `PATCH` | `/api/users/:id/status` | Set user status (`active` / `inactive`) |
-| `DELETE` | `/api/users/:id` | Deactivate user and soft-delete their records |
+| Method     | Path                      | Description                                     |
+|------------|---------------------------|-------------------------------------------------|
+| `GET`      | `/api/users`              | List all users                                  |
+| `GET`      | `/api/users/:id`          | Get user by ID                                  |
+| `PUT`      | `/api/users/:id`          | Update user name, email, or role                |
+| `PATCH`    | `/api/users/:id/status`   | Set user status (`active` / `inactive`)         |
+| `DELETE`   | `/api/users/:id`          | Deactivate user and soft-delete their records   |
 
 **`PUT /api/users/:id` body:**
 ```json
@@ -278,14 +278,14 @@ Authenticate and receive a token.
 
 ### Financial Records
 
-| Method | Path | Access | Description |
-|--------|------|--------|-------------|
-| `POST` | `/api/records` | Admin | Create a record |
-| `GET` | `/api/records` | Admin, Analyst, Viewer | List records (filterable, paginated) |
-| `GET` | `/api/records/export` | Admin, Analyst | Export records as CSV |
-| `GET` | `/api/records/:id` | Admin, Analyst, Viewer | Get a single record |
-| `PUT` | `/api/records/:id` | Admin | Update a record |
-| `DELETE` | `/api/records/:id` | Admin | Soft-delete a record |
+| Method     | Path                    | Access                  | Description                           |
+|------------|-------------------------|-------------------------|---------------------------------------|
+| `POST`     | `/api/records`          | Admin                   | Create a record                       |
+| `GET`      | `/api/records`          | Admin, Analyst, Viewer  | List records (filterable, paginated)  |
+| `GET`      | `/api/records/export`   | Admin, Analyst          | Export records as CSV                 |
+| `GET`      | `/api/records/:id`      | Admin, Analyst, Viewer  | Get a single record                   |
+| `PUT`      | `/api/records/:id`      | Admin                   | Update a record                       |
+| `DELETE`   | `/api/records/:id`      | Admin                   | Soft-delete a record                  |
 
 #### `POST /api/records` — Create
 
@@ -321,15 +321,15 @@ Authenticate and receive a token.
 
 **Query parameters:**
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `type` | `income` \| `expense` | Filter by record type |
-| `category` | string | Filter by category (exact match) |
-| `date_from` | ISO date string | Filter records on or after this date |
-| `date_to` | ISO date string | Filter records on or before this date |
-| `search` | string | Search description and category |
-| `page` | integer | Page number (default: 1) |
-| `limit` | integer | Records per page, max 100 (default: 10) |
+| Parameter    | Type                    | Description                               |
+|--------------|-------------------------|-------------------------------------------|
+| `type`       | `income` \| `expense`   | Filter by record type                     |
+| `category`   | string                  | Filter by category (exact match)          |
+| `date_from`  | ISO date string         | Filter records on or after this date      |
+| `date_to`    | ISO date string         | Filter records on or before this date     |
+| `search`     | string                  | Search description and category           |
+| `page`       | integer                 | Page number (default: 1)                  |
+| `limit`      | integer                 | Records per page, max 100 (default: 10)   |
 
 **Example:**
 ```
@@ -358,12 +358,12 @@ GET /api/records?type=income&date_from=2025-01-01&date_to=2025-12-31&page=1&limi
 
 > 🔒 Summary, categories, trends — **Admin, Analyst** only. Recent — all roles.
 
-| Endpoint | Description |
-|----------|-------------|
-| `GET /api/dashboard/summary` | Total income, total expenses, net balance, record count |
-| `GET /api/dashboard/categories` | Amount and count grouped by category and type |
-| `GET /api/dashboard/trends` | Monthly totals grouped by type (income/expense) |
-| `GET /api/dashboard/recent?limit=N` | N most recent records (default: 10) |
+| Endpoint                           | Description                                              |
+|------------------------------------|----------------------------------------------------------|
+| `GET /api/dashboard/summary`       | Total income, total expenses, net balance, record count  |
+| `GET /api/dashboard/categories`    | Amount and count grouped by category and type            |
+| `GET /api/dashboard/trends`        | Monthly totals grouped by type (income/expense)          |
+| `GET /api/dashboard/recent?limit=N`| N most recent records (default: 10)                      |
 
 **`GET /api/dashboard/summary` response:**
 ```json
@@ -425,10 +425,10 @@ Every create, update, and delete action in the system is automatically recorded.
 
 ### System
 
-| Endpoint | Access | Description |
-|----------|--------|-------------|
-| `GET /api/health` | Public | Server health, DB status, memory, uptime |
-| `GET /api/docs` | Public | JSON API documentation |
+| Endpoint          | Access  | Description                                |
+|-------------------|---------|--------------------------------------------|
+| `GET /api/health` | Public  | Server health, DB status, memory, uptime   |
+| `GET /api/docs`   | Public  | JSON API documentation                     |
 
 **`GET /api/health` response:**
 ```json
@@ -446,59 +446,59 @@ Every create, update, and delete action in the system is automatically recorded.
 
 ## Role-Based Access Control
 
-| Action | Viewer | Analyst | Admin |
-|--------|--------|---------|-------|
-| Login / Register | ✅ | ✅ | ✅ |
-| View records (GET) | ✅ | ✅ | ✅ |
-| View dashboard/recent | ✅ | ✅ | ✅ |
-| Dashboard summary & trends | ❌ | ✅ | ✅ |
-| Export records (CSV) | ❌ | ✅ | ✅ |
-| Create records | ❌ | ❌ | ✅ |
-| Update / Delete records | ❌ | ❌ | ✅ |
-| User management | ❌ | ❌ | ✅ |
-| View audit logs | ❌ | ❌ | ✅ |
+| Action                       | Viewer | Analyst | Admin |
+|------------------------------|--------|---------|-------|
+| Login / Register             | ✅     | ✅      | ✅    |
+| View records (GET)           | ✅     | ✅      | ✅    |
+| View dashboard/recent        | ✅     | ✅      | ✅    |
+| Dashboard summary & trends   | ❌     | ✅      | ✅    |
+| Export records (CSV)         | ❌     | ✅      | ✅    |
+| Create records               | ❌     | ❌      | ✅    |
+| Update / Delete records      | ❌     | ❌      | ✅    |
+| User management              | ❌     | ❌      | ✅    |
+| View audit logs              | ❌     | ❌      | ✅    |
 
 ---
 
 ## Data Models
 
 ### `users`
-| Column | Type | Notes |
-|--------|------|-------|
-| `id` | TEXT (UUID) | Primary key |
-| `name` | TEXT | Required |
-| `email` | TEXT | Unique |
-| `password_hash` | TEXT | bcrypt hashed |
-| `role` | TEXT | `viewer` \| `analyst` \| `admin` |
-| `status` | TEXT | `active` \| `inactive` |
-| `created_at` | DATETIME | Auto |
-| `updated_at` | DATETIME | Auto |
+| Column          | Type        | Notes                                        |
+|-----------------|-------------|----------------------------------------------|
+| `id`            | TEXT (UUID) | Primary key                                  |
+| `name`          | TEXT        | Required                                     |
+| `email`         | TEXT        | Unique                                       |
+| `password_hash` | TEXT        | bcrypt hashed                                |
+| `role`          | TEXT        | `viewer` \| `analyst` \| `admin`             |
+| `status`        | TEXT        | `active` \| `inactive`                       |
+| `created_at`    | DATETIME    | Auto                                         |
+| `updated_at`    | DATETIME    | Auto                                         |
 
 ### `financial_records`
-| Column | Type | Notes |
-|--------|------|-------|
-| `id` | TEXT (UUID) | Primary key |
-| `amount` | REAL | Must be > 0 |
-| `type` | TEXT | `income` \| `expense` |
-| `category` | TEXT | Required |
-| `date` | TEXT | ISO date string (`YYYY-MM-DD`) |
-| `description` | TEXT | Optional |
-| `created_by` | TEXT | FK → `users.id` |
-| `is_deleted` | INTEGER | `0` = active, `1` = soft-deleted |
-| `created_at` | DATETIME | Auto |
-| `updated_at` | DATETIME | Auto |
+| Column          | Type        | Notes                                        |
+|-----------------|-------------|----------------------------------------------|
+| `id`            | TEXT (UUID) | Primary key                                  |
+| `amount`        | REAL        | Must be > 0                                  |
+| `type`          | TEXT        | `income` \| `expense`                        |
+| `category`      | TEXT        | Required                                     |
+| `date`          | TEXT        | ISO date string (`YYYY-MM-DD`)               |
+| `description`   | TEXT        | Optional                                     |
+| `created_by`    | TEXT        | FK → `users.id`                              |
+| `is_deleted`    | INTEGER     | `0` = active, `1` = soft-deleted             |
+| `created_at`    | DATETIME    | Auto                                         |
+| `updated_at`    | DATETIME    | Auto                                         |
 
 ### `audit_logs`
-| Column | Type | Notes |
-|--------|------|-------|
-| `id` | TEXT (UUID) | Primary key |
-| `user_id` | TEXT | Who performed the action |
-| `action` | TEXT | `CREATE`, `UPDATE`, `DELETE`, `UPDATE_STATUS` |
-| `resource` | TEXT | e.g. `financial_record`, `user` |
-| `resource_id` | TEXT | ID of the affected entity |
-| `details` | TEXT | JSON-serialized change payload |
-| `ip_address` | TEXT | Optional — reserved for future use |
-| `created_at` | DATETIME | Auto |
+| Column          | Type        | Notes                                        |
+|-----------------|-------------|----------------------------------------------|
+| `id`            | TEXT (UUID) | Primary key                                  |
+| `user_id`       | TEXT        | Who performed the action                     |
+| `action`        | TEXT        | `CREATE`, `UPDATE`, `DELETE`, `UPDATE_STATUS`|
+| `resource`      | TEXT        | e.g. `financial_record`, `user`              |
+| `resource_id`   | TEXT        | ID of the affected entity                    |
+| `details`       | TEXT        | JSON-serialized change payload               |
+| `ip_address`    | TEXT        | Optional — reserved for future use           |
+| `created_at`    | DATETIME    | Auto                                         |
 
 ---
 
@@ -529,15 +529,15 @@ Every write operation (CREATE, UPDATE, DELETE) is automatically logged by the se
 
 ## Assumptions & Tradeoffs
 
-| Assumption / Tradeoff | Reasoning |
-|-----------------------|-----------|
-| SQLite instead of PostgreSQL/MySQL | Zero-config, file-based, ideal for assessment — trivial to swap out by replacing the `database.js` config and switching from `better-sqlite3` to a promise-based driver |
-| Synchronous DB calls | `better-sqlite3` is synchronous by design; this is a feature, not a tradeoff — it avoids async complexity without sacrificing correctness |
-| Role assigned at registration | Any role can be assigned at signup for flexibility during development/testing. In production, only admins should be able to assign `admin`/`analyst` roles |
-| Dates stored as ISO strings | SQLite has no native DATE type. Storing as `TEXT` in `YYYY-MM-DD` format is the standard pattern and works correctly with SQLite's `strftime()` and string comparison operators |
-| No refresh tokens | Token expiry is fixed at 24 hours. A production system would add refresh tokens and a revocation mechanism |
-| Password hashing is synchronous (`bcrypt.hashSync`) | Acceptable in a synchronous codebase using `better-sqlite3`. An async framework (PostgreSQL + async drivers) would use the async bcrypt variants |
-| Audit log IP address not captured | Reserved column for future use — would require extracting it from `req.ip` in the controller layer |
+| Assumption / Tradeoff                                | Reasoning                                                                                                                                                               |
+|------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| SQLite instead of PostgreSQL/MySQL                   | Zero-config, file-based, ideal for assessment — trivial to swap out by replacing the `database.js` config and switching from `better-sqlite3` to a promise-based driver |
+| Synchronous DB calls                                 | `better-sqlite3` is synchronous by design; this is a feature, not a tradeoff — it avoids async complexity without sacrificing correctness                               |
+| Role assigned at registration                        | Any role can be assigned at signup for flexibility during development/testing. In production, only admins should be able to assign `admin`/`analyst` roles               |
+| Dates stored as ISO strings                          | SQLite has no native DATE type. Storing as `TEXT` in `YYYY-MM-DD` format is the standard pattern and works correctly with SQLite's `strftime()` and string comparison operators |
+| No refresh tokens                                    | Token expiry is fixed at 24 hours. A production system would add refresh tokens and a revocation mechanism                                                              |
+| Password hashing is synchronous (`bcrypt.hashSync`) | Acceptable in a synchronous codebase using `better-sqlite3`. An async framework (PostgreSQL + async drivers) would use the async bcrypt variants                       |
+| Audit log IP address not captured                    | Reserved column for future use — would require extracting it from `req.ip` in the controller layer                                                                      |
 
 ---
 
