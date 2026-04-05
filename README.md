@@ -2,6 +2,8 @@
 
 A RESTful backend API for a multi-role finance dashboard system. Built with **Node.js**, **Express**, and **SQLite** (via `better-sqlite3`). Supports financial record management, role-based access control, dashboard analytics, and a full audit trail.
 
+> 📄 **Interactive API Docs (Swagger UI):** [`http://localhost:3000/api-docs`](http://localhost:3000/api-docs)
+
 ---
 
 ## Table of Contents
@@ -19,6 +21,7 @@ A RESTful backend API for a multi-role finance dashboard system. Built with **No
   - [Dashboard](#dashboard)
   - [Audit Logs](#audit-logs)
   - [System](#system)
+- [Interactive API Docs (Swagger)](#interactive-api-docs-swagger)
 - [Role-Based Access Control](#role-based-access-control)
 - [Data Models](#data-models)
 - [Architecture & Design Decisions](#architecture--design-decisions)
@@ -441,6 +444,24 @@ Every create, update, and delete action in the system is automatically recorded.
   "memory": { "used": "42 MB", "total": "65 MB" }
 }
 ```
+
+---
+
+## Interactive API Docs (Swagger)
+
+The API ships with a fully interactive **Swagger UI** powered by `swagger-jsdoc` and `swagger-ui-express`.
+
+| URL | Description |
+|-----|-------------|
+| [`http://localhost:3000/api-docs`](http://localhost:3000/api-docs) | Swagger UI — browse and test all endpoints |
+| [`http://localhost:3000/api-docs.json`](http://localhost:3000/api-docs.json) | Raw OpenAPI 3.0 spec (JSON) |
+
+### How to authenticate in Swagger UI
+
+1. Call `POST /api/auth/login` with the default credentials to obtain a JWT token.
+2. Click the **Authorize 🔒** button at the top right of the Swagger UI page.
+3. Paste the token in the `BearerAuth` field and click **Authorize**.
+4. All subsequent requests will include the `Authorization: Bearer <token>` header automatically.
 
 ---
 

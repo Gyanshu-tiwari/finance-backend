@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
+import swaggerUi from 'swagger-ui-express';
 
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
@@ -16,10 +17,38 @@ import docsRoutes from './routes/docs.js';
 
 import errorHandler from './middleware/errorHandler.js';
 import db from './config/database.js';
+import swaggerSpec from './config/swagger.js';
 
 const app = express();
 
-app.use(helmet());
+// Relax helmet CSP so Swagger UI assets load correctly
+app.use(
+    helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+                scriptSrc:  ["'self'", "'unsafe-inline'"],
+                styleSrc:   ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+                imgSrc:     ["'self'", 'data:', 'https://validator.swagger.io'],
+                fontSrc:    ["'self'", 'https://fonts.gstatic.com'],
+            },
+        },
+    })
+);
+
+// Swagger UI — must be before rate limiter
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+    customSiteTitle: 'Finance Dashboard API Docs',
+    swaggerOptions: { persistAuthorization: true },
+}));
+
+// Raw OpenAPI JSON spec
+app.get('/api-docs.json', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(swaggerSpec);
+});
+
+
 
 app.use(cors({
     origin: process.env.ALLOWED_ORIGINS || '*',
