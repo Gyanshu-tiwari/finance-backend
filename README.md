@@ -128,7 +128,7 @@ finance_Dashboard_backend/
 
 ```bash
 # 1. Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/Gyanshu-tiwari/finance-backend.git
 cd finance_Dashboard_backend
 
 # 2. Install dependencies
